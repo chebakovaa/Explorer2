@@ -9,11 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "golden-layout": "^2.2.1",
     "metro4": "^4.4.3",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
-    "vue-golden-layout": "^2.1.1",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
     "vuelayers": "^0.12.0-rc.26",

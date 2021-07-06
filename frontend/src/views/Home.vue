@@ -32,16 +32,13 @@
         </div>
       </div>
     </nav>
-    <div class="window-content">
-      <Body/>
-    </div>
+    <Body/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import * as Metro from 'metro4'
-import router from '@/router'
 import Body from '@/components/Body.vue'
 
 export default Vue.extend({
@@ -51,7 +48,7 @@ export default Vue.extend({
   },
   methods: {
     showConfig: function() {
-      router.push('settings');
+      this.$router.push('settings');
     },
     mounted() {
       Metro.init();

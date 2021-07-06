@@ -3,18 +3,23 @@ import App from './App.vue';
 import store from './store';
 import vuetify from './plugins/vuetify'
 import router from './router'
-import 'golden-layout/dist/css/themes/goldenlayout-light-theme.css'
-import 'golden-layout/dist/css/goldenlayout-base.css'
-import vgl from 'vue-golden-layout'
+import VueRouter from 'vue-router';
+import Metro from 'metro4'
+// import 'metro4/build/css/metro-all.min.css'
+// import 'metro4/build/css/schemes/sky-net.min.css'
+
 
 Vue.config.productionTip = false;
 
-Vue.use(vgl)
+Vue.use(VueRouter);
 
 new Vue({
   store,
   vuetify,
   router,
-  render: (h) => h(App)
+  render: (h) => h(App),
+  mounted: function() {
+    Metro.init();
+  }
 }).$mount('#app');
 

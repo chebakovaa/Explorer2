@@ -32,14 +32,13 @@
 </style>
 
 <script>
-import router from '@/router';
 import Vue from 'vue'
 import * as Metro from 'metro4'
 
 export default Vue.extend({
   methods: {
     goHome() {
-      router.push('/');
+      this.$router.push('/');
     }
   },
 })

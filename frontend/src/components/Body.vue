@@ -1,21 +1,37 @@
 <template>
-  <div class="gl-container" ref="element" style="width: 100%; height: 100%;">
-    <teleport
-      v-for="{ id, type, element } in componentInstances"
-      :key="id"
-      :to="element">
-      <component :is="type"></component>
-    </teleport>
+  <div class="body-container">
+    <div class="sidepanel">
+      <StructureViewer/>
+    </div>
+    <div class="content">
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import StructureViewer from "./StructureViewer";
 
 export default Vue.extend({
   name: "Body",
+  components: {
+    StructureViewer
+  }
 });
 </script>
 
 <style scoped>
+  .body-container {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .sidepanel {
+    width: 500px;
+    border: 2px solid gray;
+  }
+  .content {
+    flex-grow: 1;
+  }
+
 </style>
