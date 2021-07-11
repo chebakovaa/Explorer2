@@ -1,43 +1,34 @@
 <template>
-  <v-app>
+ <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app >
+      <DBStructure/>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>PanoDB</v-toolbar-title>
+    </v-app-bar>
+
     <v-main>
-      <div id="app1">
-        <router-view/>
-      </div>
+      <body-content/>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import DBStructure from "./components/DBStructure.vue";
+import BodyContent from "./components/BodyContent.vue";
+
 export default Vue.extend({
-  
-})
+  name: "App",
+  components: {
+    DBStructure,
+    BodyContent,
+    },
+  data: () => ({
+    drawer: null
+  }),
+});
 </script>
-
-
-<style lang="scss">
-html {
-  overflow-y: hidden !important;
-}
-#app1 {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin: 0.2vh;
-  height: 99vh;
-}
-
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin: 0.2vh;
-  height: 99vh;
-}
-
-</style>

@@ -1,19 +1,14 @@
-
-import VueRouter from "vue-router";
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import Settings from "../views/Settings.vue";
 
-const router = new VueRouter({
-  routes: [
+Vue.use(VueRouter);
+
+const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/settings",
-    name: "Settings",
-    component: Settings,
   },
   {
     path: "/about",
@@ -24,11 +19,12 @@ const router = new VueRouter({
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
-]});
+];
 
-// const router = createRouter({
-//   history: createWebHistory(process.env.BASE_URL),
-//   routes,
-// });
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
 
 export default router;

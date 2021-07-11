@@ -1,5 +1,5 @@
 module.exports = {
-    // proxy all webpack dev-server requests starting with /api
+      // proxy all webpack dev-server requests starting with /api
     // to our Spring Boot backend (localhost:8098) using http-proxy-middleware
     // see https://cli.vuejs.org/config/#devserver-proxy
     devServer: {
@@ -11,15 +11,9 @@ module.exports = {
             }
         }
     },
-
     // Change build paths to make them Maven compatible
     // see https://cli.vuejs.org/config/
-    outputDir: 'target/dist',
-
-    assetsDir: 'static',
-    productionSourceMap: false,
-
-    transpileDependencies: [
-      'vuetify'
-    ]
-}
+  outputDir: 'target/dist',
+  assetsDir: 'static',  
+  transpileDependencies: ["vuetify"],
+};

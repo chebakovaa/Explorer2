@@ -1,73 +1,16 @@
 <template>
-  <div class="window">
-    <nav data-role="ribbonmenu">
-      <ul class="tabs-holder">
-          <li class="static" @click="showConfig"><a href="#">DataBase</a></li>
-          <li><a href="#section-main">Main</a></li>
-          <li><a href="#section-map">Map</a></li>
-          <li class="disabled"><a href="#section-table">Table</a></li>
-          <li><a href="#section-help">Help</a></li>
-      </ul>
-      <div class="content-holder">
-        <div class="section" id="section-main">
-          <div class="group">
-                  <button class="ribbon-button">
-                          <span class="icon">
-                              <span class="mif-flow-cascade"></span>
-                          </span>
-                      <span class="caption">Data Tree</span>
-                  </button>
-
-                  <span class="title">Main elements</span>
-              </div>
-          </div>
-        <div class="section" id="section-map">
-            <p class="p-4">Section Map</p>
-        </div>
-        <div class="section" id="section-table">
-            <p class="p-4">Section Table</p>
-        </div>
-        <div class="section" id="section-help">
-            <p class="p-4">Section Help</p>
-        </div>
-      </div>
-    </nav>
-    <Body/>
-  </div>
+  <hello-world />
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import * as Metro from 'metro4'
-import Body from '@/components/Body.vue'
+import Vue from "vue";
+import HelloWorld from "../components/HelloWorld.vue";
 
 export default Vue.extend({
   name: "Home",
+
   components: {
-    Body
+    HelloWorld,
   },
-  methods: {
-    showConfig: function() {
-      this.$router.push('settings');
-    },
-    mounted() {
-      Metro.init();
-    }
-  }
-})
-
+});
 </script>
-
-<style>
-
-.window {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100% !important;
-  flex-flow: column nowrap;
-} 
-
-</style>
