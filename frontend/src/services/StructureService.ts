@@ -1,13 +1,22 @@
 import IStructureService from "@/interfaces/IStructureService";
+import INode from "@/model/INode";
+import INodeContent from "@/model/INodeContent";
 
 export default class StructureSercice implements IStructureService {
   
-  constructor(private readonly url: RequestInfo) {
+  constructor(private readonly url: string) {
   }
 
-  public subPath(path: Array<Node>): Array<Node> {
+  public async subPath(path: Array<INode>, start: number, count: number): Promise<INodeContent> {
+    const endpoint = new URL(this.url);
     
-    return fetch(this.url, {
+    endpoint.search = new URLSearchParams([ 
+      ["object", path.map(v => {v.mnem, v.name, v.id, v.pid, v.otype, v.cnt}).toString()],
+      ["start", start.toString()],
+      ["count", count.toString()]
+    ]).toString();
+
+    const result = await fetch(new Request(endpoint.toString(), {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -15,19 +24,9 @@ export default class StructureSercice implements IStructureService {
       headers: {
         'Content-Type': 'application/json',
       }
-    });
-    return 
-      .then(response => response.json());
-    
-    
-//     var url = new URL('https://sl.se')
-
-// var params = {lat:35.696233, long:139.570431} // or:
-// var params = [['lat', '35.696233'], ['long', '139.570431']]
-
-// url.search = new URLSearchParams(params).toString();
-
-// fetch(url)
+    }));
+    if (result.status !== 200) throw new Error('server error');
+    return result.json();
   }
   
 }
