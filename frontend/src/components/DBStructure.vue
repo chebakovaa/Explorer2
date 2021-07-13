@@ -34,13 +34,14 @@
         activatable
         hoverable
         :items="items"
-        :search="search"
+        :search="searched"
         :filter="filter"
         :open.sync="open"
+        :load-children="fetchObjects"
       >
         <template v-slot:prepend="{ item }">
           <v-icon
-            v-if="item"
+            v-if="item.children"
             v-text="`mdi-${item.otype === 'item' ? 'card-text-outline' : 'folder-network'}`"
           ></v-icon>
         </template>
@@ -52,99 +53,54 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
   import INode from "@/model/INode";
+  import StructureSercice from "@/services/StructureService";
+  import Vue from "vue";
 
-  export default {
+  const service = new StructureSercice("http://localhost:3086/content");
+  const rootNode = {    
+        mnem: "root",
+        name: "Месторождения",
+        id: 0,
+        pid: -1,
+        otype: "folder",
+        cnt: 5,
+      };
+
+  export default Vue.extend({
     name: "DBStructure",
-    props: {
-      nodes: {
-        type: Array,
-        required: true,
-        default: new Array<INode>(0),
-      }, 
-    },
     data: () => ({
+      nodes: new Array<INode>(rootNode),
       rowCount: 5,
-      // items: [
-      //   {
-      //     id: 1,
-      //     name: 'Vuetify Human Resources',
-      //     children: [
-      //       {
-      //         id: 2,
-      //         name: 'Core team',
-      //         children: [
-      //           {
-      //             id: 201,
-      //             name: 'John',
-      //           },
-      //           {
-      //             id: 202,
-      //             name: 'Kael',
-      //           },
-      //           {
-      //             id: 203,
-      //             name: 'Nekosaur',
-      //           },
-      //           {
-      //             id: 204,
-      //             name: 'Jacek',
-      //           },
-      //           {
-      //             id: 205,
-      //             name: 'Andrew',
-      //           },
-      //         ],
-      //       },
-      //       {
-      //         id: 3,
-      //         name: 'Administrators',
-      //         children: [
-      //           {
-      //             id: 301,
-      //             name: 'Mike',
-      //           },
-      //           {
-      //             id: 302,
-      //             name: 'Hunt',
-      //           },
-      //         ],
-      //       },
-      //       {
-      //         id: 4,
-      //         name: 'Contributors',
-      //         children: [
-      //           {
-      //             id: 401,
-      //             name: 'Phlow',
-      //           },
-      //           {
-      //             id: 402,
-      //             name: 'Brandon',
-      //           },
-      //           {
-      //             id: 403,
-      //             name: 'Sean',
-      //           },
-      //         ],
-      //       },
-      //     ],
-      //   },
-      // ],
-      open: [1, 2],
+      open: [],
       search: null,
       caseSensitive: false,
     }),
+    methods: {
+      async fetchObjects(item: any) {
+        service.subPath(this.$data.nodes, 0, 5)
+        .then(v => (item.children.push(v.children)));
+      },
+    },
     computed: {
       filter () {
-        return this.caseSensitive
-          ? (item, search, textKey) => item[textKey].indexOf(search) > -1
+        return this.$data.caseSensitive
+          ? (item:any, search:any, textKey: any) => item[textKey].indexOf(search) > -1
           : undefined
       },
       items () {
-        return this.nodes.map(v => ({id: v.id, name: v.name, otype: v.otype, cnt: v.cnt}));
+        return this.$data.nodes.map((v: INode) => ({id: v.id, mnem: v.mnem,  name: v.name, otype: v.otype, cnt: v.cnt, children: []}));
       },
+      searched () { return this.$data.search; }
     },
-  }
+    // mounted() {
+    //   service.subPath(new Array<INode>(0), 0, 5)
+    //   .then(
+    //     v => {
+    //       this.nodes = v.children;
+    //     }
+    //   );
+    // },
+  })
 </script>

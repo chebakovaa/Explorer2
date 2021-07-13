@@ -16,4 +16,7 @@ module.exports = {
   outputDir: 'target/dist',
   assetsDir: 'static',  
   transpileDependencies: ["vuetify"],
+  configureWebpack: {
+    devtool: "source-map"
+  }
 };

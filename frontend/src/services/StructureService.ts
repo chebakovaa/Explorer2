@@ -11,7 +11,7 @@ export default class StructureSercice implements IStructureService {
     const endpoint = new URL(this.url);
     
     endpoint.search = new URLSearchParams([ 
-      ["object", path.map(v => {v.mnem, v.name, v.id, v.pid, v.otype, v.cnt}).toString()],
+      ["node-path", path.map(v => {v.mnem, v.name, v.id, v.pid, v.otype}).toString()],
       ["start", start.toString()],
       ["count", count.toString()]
     ]).toString();
